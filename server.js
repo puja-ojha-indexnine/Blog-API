@@ -1,16 +1,14 @@
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
+const BlogPost = require('./models/post')
+const methodOverride = require('method-override');
 
 // Route file
-const blogRouter = require('./routes/blogs');
+const blogRouter = require('./routes/posts');
 
 const app = express();
 
-mongoose.connect('mongodb://localhost/27017/blog', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-});
 
 
 
@@ -18,22 +16,17 @@ app.set('view engine', 'ejs');
 
 app.use(express.urlencoded({ extended: false}));
 
+app.use(methodOverride('_method'));
+
 //app.use('/posts', blogRouter);
 
 
-app.get('/', (req, res) => {
-    const blogs = [{
-        title: "Test Blog 1",
-        createdOn: new Date,
-        description: 'Test Description 1'
-    },
-    {   
-        title: "Test Blog 2",
-        createdOn: new Date,
-        description: 'Test Description 2'
-    }]
-    res.render('blogs/index', { blogs: blogs });
+app.get('/', async (req, res) => {
+    const blogs = await BlogPost.find().sort({ createdOn: 'desc'});
+    res.render('posts/index', { blogs: blogs });
 });
+
+app.use('/posts', blogRouter);
 
 
 app.listen(5000, () => {

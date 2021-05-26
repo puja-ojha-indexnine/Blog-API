@@ -11,9 +11,16 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dompurify": "^2.2.8",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
-    "mongoose": "^5.12.10"
+    "express-edge": "^2.0.2",
+    "jsdom": "^16.6.0",
+    "marked": "^2.0.5",
+    "method-override": "^3.0.0",
+    "mongoose": "^5.12.10",
+    "slugify": "^1.5.3",
+    "startbootstrap-clean-blog": "^5.1.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"
